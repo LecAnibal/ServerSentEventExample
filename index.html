@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Server Memory Monitor</title>
+<script>
+
+function subscribe(es, ul) {
+
+  es.addEventListener('NewEvent', function (e) {
+
+    var ul = document.getElementById("section1");
+
+    var li = document.createElement("li");
+    li.innerHTML =  JSON.stringify(e.data);
+
+      ul.appendChild(li);
+  });
+  
+}
+
+subscribe(new EventSource('http://localhost:8080/stream/lecanibal'),
+	document.getElementById('es-messages'));
+
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h2>SSE Observe</h2>
+<ul id="section1">
+</ul>
+</div>
+
+
+</body>
+</html>
