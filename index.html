@@ -6,7 +6,7 @@
 
 function subscribe(es, ul) {
 
-  es.addEventListener('NewEvent', function (e) {
+  es.addEventListener('SessionInfo', function (e) {
 
     var ul = document.getElementById("section1");
 
@@ -17,8 +17,8 @@ function subscribe(es, ul) {
   });
   
 }
-
-subscribe(new EventSource('http://localhost:8080/stream/lecanibal'),
+const tab= Math.floor(Math.random() * ((10+1)-1)+1);
+subscribe(new EventSource('http://localhost:8081/notification/12d17b91-9563-4c33-96a6-55ee089da05e?tab='+tab),
 	document.getElementById('es-messages'));
 
 </script>

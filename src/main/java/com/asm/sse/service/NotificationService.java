@@ -23,7 +23,7 @@ public class NotificationService {
                     .id(messageId)
                     .data(o)
                     .name(evenType)
-                    .reconnectTime(0);
+                    .reconnectTime(-1);
             try {
                 emitter.send(event);
                 System.out.println("Send message to [" + id + "] > [" + evenType + "] with content :: " + o.toString());
