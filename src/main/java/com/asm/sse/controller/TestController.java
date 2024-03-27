@@ -12,16 +12,22 @@ import java.util.List;
 public class TestController {
 
     @GetMapping("/test")
-    public void  execute(){
+    public void execute() {
+        System.out.println("test");
         List<Integer> listOfNumbers = new ArrayList<>();
-        for (int i = 0 ; i<500;i ++ ) {
+        List<String> sesiones = new ArrayList<>();
+
+        sesiones.add("1234");
+        sesiones.add("7890");
+        for (int i = 0; i < 500; i++) {
             listOfNumbers.add(i);
         }
 
         listOfNumbers.forEach(number ->
                 {
-
-                        SocketTextHandler.sendMessage("1234", "message"+number);
+                    sesiones.stream().forEach(sess -> {
+                        SocketTextHandler.sendMessage(sess, "message" + number);
+                    });
 
                 }
         );

@@ -39,22 +39,27 @@ public class SocketTextHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         idToActiveSession.put((String) session.getAttributes().get("auctionId"), session);
+        System.out.println((String) session.getAttributes().get("auctionId"));
         super.afterConnectionEstablished(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         idToActiveSession.remove((String) session.getAttributes().get("auctionId"));
+        System.out.println((String) session.getAttributes().get("auctionId"));
+
         super.afterConnectionClosed(session, status);
     }
 
    public static void sendMessage(String id , String message) {
         idToActiveSession.entrySet().stream()
                 .filter(it-> it.getKey().contains(id+"@tab="))
+                .peek(it -> System.out.println(it.getKey()))
                 .forEach(it-> {
                     try {
                         it.getValue().sendMessage(new TextMessage(message));
                     } catch (IOException e) {
+                        System.out.println("can't send message to account id : ${it}  "+ e.getMessage());
                         throw new RuntimeException(e);
                     }
                 });
